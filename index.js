@@ -36,10 +36,17 @@ async function run() {
       const oneUser = req.params.id;
       const query = {_id: new ObjectId(oneUser)};
       const options = {
-        projection:{name:1, price:1, picture:1, rating:1},
+        projection:{name:1, price:1, picture:1, rating:1, quantity:1,seller_name:1,sub_category:1,description:1,seller_email:1,},
       }
       const result = await data.findOne(query,options)
       res.send(result)
+    });
+
+    app.post('/addToy',async(req,res)=> {
+          const update = req.body;
+          console.log(update)
+          const result = await data.insertOne(update)
+          res.send(result);
     })
 
     await client.db("admin").command({ ping: 1 });
